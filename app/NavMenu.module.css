@@ -1,10 +1,14 @@
 .nav {
   display: flex;
   background-color: #1d4ed8;
-  color: #fff;
+  color: #ffffff;
   height: 70px;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav a {
+  color: #ffffff;
 }
 
 .links {
