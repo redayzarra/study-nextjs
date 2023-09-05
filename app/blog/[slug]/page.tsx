@@ -1,3 +1,6 @@
+// export const dynamic = "force-dynamic";
+export const revalidate = 420;
+
 interface Post {
   title: string;
   content: string;
@@ -9,9 +12,9 @@ interface Props {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const posts: Post[] = await fetch("http://localhost:3000/api/content").then(
-    (res) => res.json()
-  );
+  const posts: Post[] = await fetch("http://localhost:3000/api/content", {
+    cache: "force-cache",
+  }).then((res) => res.json());
 
   const post = posts.find((post) => post.slug == params.slug)!;
 
