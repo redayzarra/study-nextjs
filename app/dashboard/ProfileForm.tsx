@@ -29,9 +29,10 @@ export function ProfileForm({ user }: any) {
   return (
     <div>
       <h2>Edit Your Profile</h2>
-      <form onSubmit={updateUser}>
+      <form onSubmit={updateUser} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <label htmlFor="name">Name</label>
         <input type="text" name="name" defaultValue={user?.name ?? ''} />
+
         <label htmlFor="bio">Bio</label>
         <textarea
           name="bio"
@@ -39,12 +40,20 @@ export function ProfileForm({ user }: any) {
           rows={10}
           defaultValue={user?.bio ?? ''}
         ></textarea>
+
         <label htmlFor="age">Age</label>
         <input type="text" name="age" defaultValue={user?.age ?? 0} />
+
         <label htmlFor="image">Profile Image URL</label>
         <input type="text" name="image" defaultValue={user?.image ?? ''} />
 
-        <button type="submit">Save</button>
+        <button type="submit" style={{
+          width: '150px',       
+          margin: '10px auto', 
+          padding: '5px 10px' 
+        }}>
+          Save
+        </button>
       </form>
     </div>
   );
