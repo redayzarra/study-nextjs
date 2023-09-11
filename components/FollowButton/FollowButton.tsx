@@ -1,6 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
+import FollowClient from "./FollowClient";
 
 interface Props {
   targetUserId: string;
@@ -17,5 +18,7 @@ export default async function FollowButton({ targetUserId }: Props) {
     where: { followerId: currentUserId, followingId: targetUserId },
   });
 
-  return Null;
+  return (
+    <FollowClient targetUserId={targetUserId} isFollowing={!!isFollowing} />
+  );
 }

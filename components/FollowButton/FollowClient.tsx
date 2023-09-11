@@ -47,8 +47,10 @@ export default function FollowClient({ targetUserId, isFollowing }: Props) {
   };
 
   if (isFollowing) {
-    return <button onClick={unfollow}>{"Unfollow"}</button>;
+    return (
+      <button onClick={unfollow}>{!isMutating ? "Unfollow" : "..."}</button>
+    );
   } else {
-    return <button onClick={follow}>{"Follow"}</button>;
+    return <button onClick={follow}>{!isMutating ? "Follow" : "..."}</button>;
   }
 }
