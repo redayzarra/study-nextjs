@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -22,4 +22,23 @@ export async function POST(req: Request) {
   return NextResponse.json(record);
 }
 
-export async function DELETE(req: Request) {}
+export async function DELETE(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  const currentUserEmail = session?.user?.email!;
+  const targetUserId = req.nextUrl.searchParams.get("targetUserId");
+
+  const currentUserId = await prisma.user
+    .findUnique({ where: { email: currentUserEmail } })
+    .then((user) => user?.id!);
+
+  const record = await prisma.follows.delete({
+    where: {
+      followerId_followingId: {
+        followerId: currentUserId,
+        followingId: targetUserId!,
+      },
+    },
+  });
+
+  return NextResponse.json(record);
+}
