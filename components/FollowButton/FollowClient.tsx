@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
 interface Props {
@@ -29,6 +29,10 @@ export default function FollowClient({ targetUserId, isFollowing }: Props) {
     setIsFetching(false);
 
     console.log(res);
+
+    startTransition(() => {
+      router.refresh();
+    });
   };
 
   if (isFollowing) {
