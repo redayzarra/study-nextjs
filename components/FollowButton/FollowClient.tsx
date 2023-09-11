@@ -35,6 +35,17 @@ export default function FollowClient({ targetUserId, isFollowing }: Props) {
     });
   };
 
+  const unfollow = async () => {
+    setIsFetching(true);
+
+    const res = await fetch(`/api/follow?targetUserId=${targetUserId}`, {
+      method: "DELETE",
+    });
+
+    setIsFetching(false);
+    startTransition(() => router.refresh());
+  };
+
   if (isFollowing) {
     return <button onClick={unfollow}>{"Unfollow"}</button>;
   } else {
